@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  createdTime     DateTime @default(now()) @map("created_time")
+  email           String   @unique
+  firstName       String?  @map("first_name")
+  lastName        String?  @map("last_name")
+  gender          String?
+  profileImageUrl String?  @map("profile_image_url")
+  userId          String   @unique @map("user_id")
+  subscription    String?
+  credits         String?
+
+  @@map("users")
+}
+
+model Subscription {
+  id                   Int      @id @default(autoincrement())
+  createdTime         DateTime @default(now()) @map("created_time")
+  subscriptionId      String?  @map("subscription_id")
+  stripeUserId        String?  @map("stripe_user_id")
+  status              String?
+  startDate           String?  @map("start_date")
+  endDate             String?  @map("end_date")
+  planId              String?  @map("plan_id")
+  defaultPaymentMethodId String? @map("default_payment_method_id")
+  email               String?
+  userId              String?  @map("user_id")
+
+  @@map("subscriptions")
+}
+
+model SubscriptionPlan {
+  id          Int      @id @default(autoincrement())
+  createdTime DateTime @default(now()) @map("created_time")
+  planId      String?  @map("plan_id")
+  name        String?
+  description String?
+  amount      String?
+  currency    String?
+  interval    String?
+
+  @@map("subscriptions_plans")
+}
+
+model Invoice {
+  id            Int      @id @default(autoincrement())
+  createdTime   DateTime @default(now()) @map("created_time")
+  invoiceId     String?  @map("invoice_id")
+  subscriptionId String?  @map("subscription_id")
+  amountPaid    String?  @map("amount_paid")
+  amountDue     String?  @map("amount_due")
+  currency      String?
+  status        String?
+  email         String?
+  userId        String?  @map("user_id")
+
+  @@map("invoices")
+} 
