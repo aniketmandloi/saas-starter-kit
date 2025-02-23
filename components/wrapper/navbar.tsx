@@ -109,7 +109,7 @@ export default function NavBar() {
                     </Button>
                   </Link>
                   <Link
-                    href="https://twitter.com/rasmickyy"
+                    href="https://twitter.com/"
                     target="_blank"
                     prefetch={true}
                   >
@@ -120,11 +120,7 @@ export default function NavBar() {
                       <Twitter className="h-4 w-4 mr-2" />X (Twitter)
                     </Button>
                   </Link>
-                  <Link
-                    href="https://youtube.com/@rasmickyy"
-                    target="_blank"
-                    prefetch={true}
-                  >
+                  <Link href="" target="_blank" prefetch={true}>
                     <Button
                       variant="ghost"
                       className="w-full justify-start text-base font-normal h-11 border border-muted/40 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/50 dark:hover:text-blue-400 transition-colors"
@@ -190,10 +186,7 @@ export default function NavBar() {
           <Link href="/playground" prefetch={true}>
             <Button variant="ghost">AI Playground</Button>
           </Link>
-          <Link
-            href="https://github.com/michaelshimeles/nextjs14-starter-template"
-            prefetch={true}
-          >
+          <Link href="" prefetch={true}>
             <Button variant="ghost" size="icon">
               <Github className="h-5 w-5" />
             </Button>
