@@ -17,8 +17,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { AuthCard } from "./auth-card";
 import { useToast } from "@/components/ui/use-toast";
+import { AuthLayout } from "./auth-layout";
+import { LogIn } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -88,88 +91,93 @@ export function SignIn() {
   };
 
   return (
-    <AuthCard
-      headerTitle="Welcome back"
-      headerSubtitle="Enter your email to sign in to your account"
-      footer={
-        <p className="text-center text-sm text-muted-foreground">
-          Don't have an account?{" "}
-          <Button
-            variant="link"
-            className="pl-1 font-medium"
-            onClick={() => router.push("/sign-up")}
-          >
-            Sign up
-          </Button>
-        </p>
-      }
+    <AuthLayout
+      icon={<LogIn className="h-4 w-4" />}
+      title="Welcome Back"
+      subtitle="Sign in to your account to continue"
+      badgeText="Authentication"
     >
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="name@example.com"
-                    type="email"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter your password"
-                    type="password"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button className="w-full" type="submit" disabled={isLoading}>
-            {isLoading && (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            )}
-            Sign in
+      <Card className="w-full max-w-md mx-auto bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
+        <CardContent className="pt-6">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="name@example.com"
+                        type="email"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter your password"
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button className="w-full" type="submit" disabled={isLoading}>
+                {isLoading && (
+                  <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+                )}
+                Sign in
+              </Button>
+            </form>
+          </Form>
+
+          <div className="relative my-4">
+            <div className="absolute inset-0 flex items-center">
+              <Separator className="w-full" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <Button
+            variant="outline"
+            type="button"
+            className="w-full"
+            onClick={signInWithGoogle}
+            disabled={isLoading}
+          >
+            <Icons.google className="mr-2 h-4 w-4" />
+            Google
           </Button>
-        </form>
-      </Form>
 
-      <div className="relative my-4">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-
-      <Button
-        variant="outline"
-        type="button"
-        className="w-full"
-        onClick={signInWithGoogle}
-        disabled={isLoading}
-      >
-        <Icons.google className="mr-2 h-4 w-4" />
-        Google
-      </Button>
-    </AuthCard>
+          <div className="mt-4 text-center text-sm text-muted-foreground">
+            Don't have an account?{" "}
+            <Button
+              variant="link"
+              className="pl-1 font-medium"
+              onClick={() => router.push("/sign-up")}
+            >
+              Sign up
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </AuthLayout>
   );
 }

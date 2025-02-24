@@ -1,24 +1,27 @@
 "use client";
 
 import CustomLink from "@/components/custom-link";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { Banknote, Folder, HomeIcon, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function DashboardSideBar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-64 border-r h-full bg-background">
+    <div className="w-64 border-r h-full bg-background/50 backdrop-blur-xl">
       <div className="flex h-full flex-col">
-        <div className="flex h-[3.45rem] items-center border-b px-4">
+        <div className="flex h-[3.45rem] items-center border-b px-6">
           <Link
             prefetch={true}
-            className="flex items-center gap-2 font-semibold hover:cursor-pointer"
+            className="flex items-center gap-2 font-semibold transition-colors hover:text-primary"
             href="/"
           >
-            <span>Nextjs Starter Kit</span>
+            <span className="bg-gradient-to-r from-gray-900 via-blue-800 to-gray-900 dark:from-white dark:via-blue-300 dark:to-white bg-clip-text text-transparent">
+              Nextjs Starter Kit
+            </span>
           </Link>
         </div>
 
@@ -26,57 +29,93 @@ export default function DashboardSideBar() {
           <Link
             prefetch={true}
             href="/dashboard"
-            className={clsx(
-              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+            className={cn(
+              "relative flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
               pathname === "/dashboard"
-                ? "bg-primary/10 text-primary hover:bg-primary/20"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "text-primary"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
+            {pathname === "/dashboard" && (
+              <motion.div
+                layoutId="activeNav"
+                className="absolute inset-0 bg-primary/10 rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+            )}
             <HomeIcon className="h-4 w-4" />
-            Overview
+            <span className="relative">Overview</span>
           </Link>
 
           <Link
             prefetch={true}
             href="/dashboard/projects"
-            className={clsx(
-              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+            className={cn(
+              "relative flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
               pathname === "/dashboard/projects"
-                ? "bg-primary/10 text-primary hover:bg-primary/20"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "text-primary"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
+            {pathname === "/dashboard/projects" && (
+              <motion.div
+                layoutId="activeNav"
+                className="absolute inset-0 bg-primary/10 rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+            )}
             <Folder className="h-4 w-4" />
-            Projects
+            <span className="relative">Projects</span>
           </Link>
 
           <Link
             prefetch={true}
             href="/dashboard/finance"
-            className={clsx(
-              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+            className={cn(
+              "relative flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
               pathname === "/dashboard/finance"
-                ? "bg-primary/10 text-primary hover:bg-primary/20"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "text-primary"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
+            {pathname === "/dashboard/finance" && (
+              <motion.div
+                layoutId="activeNav"
+                className="absolute inset-0 bg-primary/10 rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+            )}
             <Banknote className="h-4 w-4" />
-            Finance
+            <span className="relative">Finance</span>
           </Link>
 
           <Link
             prefetch={true}
             href="/dashboard/settings"
-            className={clsx(
-              "flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
+            className={cn(
+              "relative flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors",
               pathname === "/dashboard/settings"
-                ? "bg-primary/10 text-primary hover:bg-primary/20"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "text-primary"
+                : "text-muted-foreground hover:text-foreground"
             )}
           >
+            {pathname === "/dashboard/settings" && (
+              <motion.div
+                layoutId="activeNav"
+                className="absolute inset-0 bg-primary/10 rounded-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+            )}
             <Settings className="h-4 w-4" />
-            Settings
+            <span className="relative">Settings</span>
           </Link>
         </nav>
       </div>

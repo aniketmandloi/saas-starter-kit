@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
+import { User } from "lucide-react";
+import { AuthLayout } from "./auth-layout";
 
 const profileFormSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -89,10 +91,15 @@ export function UserProfile() {
   }
 
   return (
-    <div className="container max-w-2xl py-10">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center gap-4">
+    <AuthLayout
+      icon={<User className="h-4 w-4" />}
+      title="Profile Settings"
+      subtitle="Manage your account information and preferences"
+      badgeText="Account"
+    >
+      <Card className="w-full max-w-2xl mx-auto bg-white/50 dark:bg-gray-900/50 backdrop-blur-xl">
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4 mb-6">
             <Avatar className="h-16 w-16">
               <AvatarImage src={user?.imageUrl} alt={user?.fullName || ""} />
               <AvatarFallback>
@@ -100,15 +107,8 @@ export function UserProfile() {
                 {user?.lastName?.[0]}
               </AvatarFallback>
             </Avatar>
-            <div>
-              <CardTitle>Profile Settings</CardTitle>
-              <CardDescription>
-                Manage your profile information and email settings
-              </CardDescription>
-            </div>
           </div>
-        </CardHeader>
-        <CardContent>
+
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid gap-5">
@@ -175,6 +175,6 @@ export function UserProfile() {
           </Form>
         </CardContent>
       </Card>
-    </div>
+    </AuthLayout>
   );
 }

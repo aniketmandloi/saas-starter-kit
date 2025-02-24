@@ -75,9 +75,16 @@ export default function AccordionComponent() {
                   </span>
                 </AccordionTrigger>
                 <AccordionContent className="px-2 pb-4">
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {faq.answer}
-                  </p>
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <p className="text-gray-600 dark:text-gray-300 px-4 pb-4">
+                      {faq.answer}
+                    </p>
+                  </motion.div>
                 </AccordionContent>
               </AccordionItem>
             ))}
